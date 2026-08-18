@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Consultation des bulletins
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="/css/public.css"
+    >
+
+</head>
+
+<body>
+
+    <header class="public-header">
+
+        <div class="logo">
+            POLICE NATIONALE
+        </div>
+
+        <div>
+
+            <h1>
+                Consultation des bulletins
+            </h1>
+
+            <p>
+                Espace réservé à la consultation
+            </p>
+
+        </div>
+
+    </header>
+
+
+    <main class="public-container">
+
+
+        <section class="carte recherche-carte">
+
+            <h2>
+                Consulter mes bulletins
+            </h2>
+
+            <p class="instruction">
+
+                Renseignez votre nom et votre mécano
+                pour retrouver vos bulletins de notes.
+
+            </p>
+
+
+            <form id="formRecherche">
+
+                <label for="nom">
+                    Nom
+                </label>
+
+                <input
+                    type="text"
+                    id="nom"
+                    name="nom"
+                    placeholder="Exemple : COUL"
+                    required
+                >
+
+
+                <label for="mecano">
+                    Mécano
+                </label>
+
+                <input
+                    type="text"
+                    id="mecano"
+                    name="mecano"
+                    placeholder="Exemple : 123456"
+                    required
+                >
+
+
+                <button
+                    type="submit"
+                >
+                    Rechercher mes bulletins
+                </button>
+
+            </form>
+
+
+            <div
+                id="messageRecherche"
+                class="message"
+            ></div>
+
+        </section>
+
+
+        <section
+            id="resultats"
+            class="resultats"
+        ></section>
+
+
+    </main>
+
+
+    <footer>
+
+        <p>
+            Portail de consultation des bulletins
+        </p>
+
+    </footer>
+
+
+    <script
+        src="/js/public.js"
+    ></script>
+
+</body>
+
+</html>

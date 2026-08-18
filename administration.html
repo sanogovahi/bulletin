@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Administration - Portail Bulletins Police</title>
+
+    <link
+        rel="stylesheet"
+        href="/css/administration.css"
+    >
+
+</head>
+
+<body>
+
+<!-- =====================================================
+     EN-TÊTE
+====================================================== -->
+
+<header class="admin-header">
+
+    <div class="header-contenu">
+
+        <div>
+
+            <div class="badge-admin">
+                ESPACE ADMINISTRATION
+            </div>
+
+            <h1>
+                Portail Bulletins Police
+            </h1>
+
+            <p>
+                Gestion des agents et des bulletins de notes
+            </p>
+
+        </div>
+
+        <a
+            href="/"
+            class="btn-retour"
+        >
+            ← Consultation publique
+        </a>
+
+    </div>
+
+</header>
+
+
+<!-- =====================================================
+     CONTENU PRINCIPAL
+====================================================== -->
+
+<main class="admin-container">
+
+
+    <!-- =================================================
+         STATISTIQUES
+         La Section statistique a jouter au cas ou 
+         
+<section class="statistiques-section">
+
+        <div class="section-titre">
+
+            <div>
+
+                <span class="sur-titre">
+                    TABLEAU DE BORD
+                </span>
+
+                <h2>
+                    Statistiques des bulletins
+                </h2>
+
+            </div>
+
+            <button
+                type="button"
+                id="btnActualiserStatistiques"
+                class="btn-secondaire"
+            >
+                ↻ Actualiser
+            </button>
+
+        </div>
+
+
+        <div class="statistiques-cartes">
+
+            <div class="stat-card stat-total">
+
+                <div class="stat-icon">
+                    📚
+                </div>
+
+                <div>
+
+                    <span>
+                        Total des bulletins
+                    </span>
+
+                    <strong id="totalBulletins">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-icon">
+                    📅
+                </div>
+
+                <div>
+
+                    <span>
+                        Années enregistrées
+                    </span>
+
+                    <strong id="nombreAnnees">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div
+            id="statistiquesAnnees"
+            class="statistiques-annees"
+        >
+
+            <div class="stat-chargement">
+                Chargement des statistiques...
+            </div>
+
+        </div>
+
+    </section>
+    ================================================== -->
+
+
+
+    <!-- =================================================
+         CREATION AGENT
+    ================================================== -->
+
+    <section class="carte">
+
+        <div class="carte-titre">
+
+            <div>
+
+                <span class="sur-titre">
+                    NOUVEL AGENT
+                </span>
+
+                <h2>
+                    Enregistrer un agent
+                </h2>
+
+            </div>
+
+        </div>
+
+
+        <form id="formAgent">
+
+            <div class="grille">
+
+                <div class="champ">
+
+                    <label for="nom">
+                        Nom *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nom"
+                        name="nom"
+                        placeholder="Nom"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="prenom">
+                        Prénom *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="prenom"
+                        name="prenom"
+                        placeholder="Prénom"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="mecano">
+                        Mécano *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="mecano"
+                        name="mecano"
+                        placeholder="Numéro mécano"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="service">
+                        Service
+                    </label>
+
+                    <input
+                        type="text"
+                        id="service"
+                        name="service"
+                        placeholder="Service"
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="grade">
+                        Grade
+                    </label>
+
+                    <input
+                        type="text"
+                        id="grade"
+                        name="grade"
+                        placeholder="Grade"
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="fonction">
+                        Fonction
+                    </label>
+
+                    <input
+                        type="text"
+                        id="fonction"
+                        name="fonction"
+                        placeholder="Fonction"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn-principal"
+            >
+                + Enregistrer l'agent
+            </button>
+
+        </form>
+
+
+        <div
+            id="messageAgent"
+            class="message"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         RECHERCHE AGENT
+    ================================================== -->
+
+    <section class="carte">
+
+        <div class="carte-titre">
+
+            <div>
+
+                <span class="sur-titre">
+                    GESTION
+                </span>
+
+                <h2>
+                    Rechercher un agent
+                </h2>
+
+                <p>
+                    Recherchez un agent pour consulter ses
+                    informations ou gérer ses bulletins.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <form id="formRechercheAdmin">
+
+            <div class="recherche">
+
+                <input
+                    type="search"
+                    id="rechercheAdmin"
+                    placeholder="Nom, prénom, mécano, service ou grade..."
+                    autocomplete="off"
+                    required
+                >
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+                    🔎 Rechercher
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="resultatsAdmin"
+            class="resultats-admin"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         GESTION DES BULLETINS
+         CACHÉE AU DÉMARRAGE
+    ================================================== -->
+
+    <section id="sectionBulletin"class="carte"style="display: none;">
+
+        <div class="carte-titre">
+
+            <div>
+
+                <span class="sur-titre">
+                    BULLETINS
+                </span>
+
+                <h2>
+                    Gestion des bulletins
+                </h2>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="btnFermerBulletins"
+                class="btn-secondaire"
+            >
+                ✕ Fermer
+            </button>
+
+        </div>
+
+
+        <div
+            id="agentSelectionne"
+            class="agent-selectionne"
+        ></div>
+
+
+        <form
+            id="formBulletin"
+            enctype="multipart/form-data"
+        >
+
+            <input
+                type="hidden"
+                id="agentId"
+                name="agentId"
+            >
+
+
+            <div class="grille">
+
+                <div class="champ">
+
+                    <label for="annee">
+                        Année *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="annee"
+                        name="annee"
+                        min="2000"
+                        max="2100"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="periode">
+                        Période
+                    </label>
+
+                    <select
+                        id="periode"
+                        name="periode"
+                    >
+
+                        <option value="Annuelle">
+                            Annuelle
+                        </option>
+
+                        <option value="Premier semestre">
+                            Premier semestre
+                        </option>
+
+                        <option value="Deuxième semestre">
+                            Deuxième semestre
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="champ champ-large">
+
+                    <label for="bulletin">
+                        Bulletin *
+                    </label>
+
+                    <input
+                        type="file"
+                        id="bulletin"
+                        name="bulletin"
+                        accept=".pdf,.jpg,.jpeg,.png"
+                        required
+                    >
+
+                    <small>
+                        PDF, JPG, JPEG ou PNG — maximum 10 Mo.
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <div class="actions-formulaire">
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+                    📄 Enregistrer le bulletin
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btnBulletinTest"
+                    class="btn-test"
+                >
+                    🧪 Ajouter un bulletin de test
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="messageBulletin"
+            class="message"
+        ></div>
+
+
+        <div class="bulletins-existants">
+
+            <div class="sous-titre">
+
+                <h3>
+                    Bulletins enregistrés
+                </h3>
+
+            </div>
+
+
+            <div
+                id="listeBulletins"
+                class="liste-bulletins"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =================================================
+         MODIFICATION AGENT
+         CACHÉE AU DÉMARRAGE
+    ================================================== -->
+
+    <section id="sectionModification"class="carte"
+        style="display: none;"
+    >
+
+        <div class="carte-titre">
+
+            <div>
+
+                <span class="sur-titre">
+                    MODIFICATION
+                </span>
+
+                <h2>
+                    Modifier les informations de l'agent
+                </h2>
+
+                <p>
+                    Corrigez les informations de l'agent sélectionné.
+                </p>
+
+            </div>
+
+
+            <button
+                type="button"
+                id="btnFermerModification"
+                class="btn-secondaire"
+            >
+                ✕ Fermer
+            </button>
+
+        </div>
+
+
+        <form id="formModificationAgent">
+
+            <input
+                type="hidden"
+                id="modificationAgentId"
+            >
+
+
+            <div class="grille">
+
+                <div class="champ">
+
+                    <label for="modificationNom">
+                        Nom *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modificationNom"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="modificationPrenom">
+                        Prénom *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modificationPrenom"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="modificationMecano">
+                        Mécano *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modificationMecano"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="modificationService">
+                        Service
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modificationService"
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="modificationGrade">
+                        Grade
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modificationGrade"
+                    >
+
+                </div>
+
+
+                <div class="champ">
+
+                    <label for="modificationFonction">
+                        Fonction
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modificationFonction"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="actions-formulaire">
+
+                <button
+                    type="submit"
+                    class="btn-principal"
+                >
+                    ✓ Enregistrer les modifications
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btnAnnulerModification"
+                    class="btn-secondaire"
+                >
+                    Annuler
+                </button>
+
+            </div>
+
+        </form>
+
+
+        <div
+            id="messageModification"
+            class="message"
+        ></div>
+
+    </section>
+
+</main>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+====================================================== -->
+
+<script src="/js/administration.js"></script>
+
+</body>
+
+</html>
