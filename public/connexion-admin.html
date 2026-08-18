@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Connexion Administration</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #071b33,
+                    #123d68
+                );
+
+        }
+
+        .connexion {
+
+            width: 100%;
+
+            max-width: 420px;
+
+            margin: 20px;
+
+            padding: 35px;
+
+            background: white;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 15px 40px
+                rgba(0, 0, 0, 0.30);
+
+        }
+
+        .connexion h1 {
+
+            margin-top: 0;
+
+            text-align: center;
+
+            color: #123d68;
+
+        }
+
+        .connexion p {
+
+            text-align: center;
+
+            color: #666;
+
+            margin-bottom: 30px;
+
+        }
+
+        .champ {
+
+            margin-bottom: 18px;
+
+        }
+
+        .champ label {
+
+            display: block;
+
+            margin-bottom: 7px;
+
+            font-weight: bold;
+
+            color: #333;
+
+        }
+
+        .champ input {
+
+            width: 100%;
+
+            padding: 13px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 8px;
+
+            font-size: 16px;
+
+        }
+
+        .champ input:focus {
+
+            outline: none;
+
+            border-color: #123d68;
+
+        }
+
+        button {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: none;
+
+            border-radius: 8px;
+
+            background: #123d68;
+
+            color: white;
+
+            font-size: 16px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        button:hover {
+
+            background: #0b2b4d;
+
+        }
+
+        button:disabled {
+
+            opacity: 0.6;
+
+            cursor: wait;
+
+        }
+
+        #message {
+
+            margin-top: 18px;
+
+            padding: 12px;
+
+            border-radius: 8px;
+
+            text-align: center;
+
+            display: none;
+
+        }
+
+        #message.erreur {
+
+            display: block;
+
+            background: #f8d7da;
+
+            color: #842029;
+
+        }
+
+        #message.succes {
+
+            display: block;
+
+            background: #d1e7dd;
+
+            color: #0f5132;
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <main class="connexion">
+
+        <h1>
+            🔐 Administration
+        </h1>
+
+        <p>
+            Veuillez vous identifier pour accéder
+            à l'administration.
+        </p>
+
+        <form id="formConnexionAdmin">
+
+            <div class="champ">
+
+                <label for="identifiant">
+                    Identifiant
+                </label>
+
+                <input
+                    type="text"
+                    id="identifiant"
+                    name="identifiant"
+                    autocomplete="username"
+                    required
+                >
+
+            </div>
+
+            <div class="champ">
+
+                <label for="motDePasse">
+                    Mot de passe
+                </label>
+
+                <input
+                    type="password"
+                    id="motDePasse"
+                    name="motDePasse"
+                    autocomplete="current-password"
+                    required
+                >
+
+            </div>
+
+            <button
+                type="submit"
+                id="btnConnexion"
+            >
+                Se connecter
+            </button>
+
+            <div id="message"></div>
+
+        </form>
+
+    </main>
+
+    <script>
+
+        const form =
+            document.getElementById(
+                'formConnexionAdmin'
+            );
+
+        const message =
+            document.getElementById(
+                'message'
+            );
+
+        const bouton =
+            document.getElementById(
+                'btnConnexion'
+            );
+
+        form.addEventListener(
+            'submit',
+            async event => {
+
+                event.preventDefault();
+
+                message.className = '';
+
+                message.style.display =
+                    'none';
+
+                bouton.disabled = true;
+
+                bouton.textContent =
+                    'Connexion en cours...';
+
+                const identifiant =
+                    document
+                        .getElementById(
+                            'identifiant'
+                        )
+                        .value
+                        .trim();
+
+                const motDePasse =
+                    document
+                        .getElementById(
+                            'motDePasse'
+                        )
+                        .value;
+
+                try {
+
+                    const response =
+                        await fetch(
+                            '/api/admin-login',
+                            {
+                                method: 'POST',
+
+                                headers: {
+                                    'Content-Type':
+                                        'application/json'
+                                },
+
+                                credentials:
+                                    'same-origin',
+
+                                body:
+                                    JSON.stringify({
+                                        identifiant,
+                                        motDePasse
+                                    })
+                            }
+                        );
+
+                    const data =
+                        await response.json();
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            'Connexion impossible.'
+                        );
+
+                    }
+
+                    message.textContent =
+                        'Connexion réussie.';
+
+                    message.className =
+                        'succes';
+
+                    message.style.display =
+                        'block';
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                '/administration';
+
+                        },
+                        500
+                    );
+
+                } catch (error) {
+
+                    console.error(error);
+
+                    message.textContent =
+                        error.message;
+
+                    message.className =
+                        'erreur';
+
+                    message.style.display =
+                        'block';
+
+                    bouton.disabled =
+                        false;
+
+                    bouton.textContent =
+                        'Se connecter';
+
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>
